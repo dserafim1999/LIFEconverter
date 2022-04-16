@@ -13,10 +13,8 @@ from utils.default_config import CONFIG
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('--config', '-c', dest='config', metavar='c', type=str,
         help='configuration file')
-parser.add_argument('--life', '-l', dest='life', metavar='l', type=str,
-        help='life file')
 parser.add_argument('--google', '-g', dest='use_google_maps_api', metavar='g', type=bool,
-        help='use google maps api (default False)')
+        help='use google maps api')
 args = parser.parse_args()
 
 def indentation(n):
@@ -547,7 +545,6 @@ class LIFEToTrackConverter(object):
     
 if __name__=="__main__":
     use_google_maps_api = args.use_google_maps_api
-    life_file = args.life
     config_file = args.config
 
     if use_google_maps_api == None:
