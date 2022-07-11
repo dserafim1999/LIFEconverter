@@ -3,7 +3,8 @@ from urllib.parse import urlencode
 
 from datetime import datetime, timedelta
 from math import radians, cos, sin, asin, sqrt
-from os.path import expanduser, isfile
+from os.path import expanduser, isfile, join
+from os import rename
 
 from utils.bounds import EARTH_RADIUS, bounding_locations, bounds_intersection, coords_obj, is_point_in_bounds
 from life.life import Life
@@ -51,6 +52,10 @@ class LIFEToTrackConverter(object):
             self.get_locations_max_distance()
             self.calculate_location_coords()
             self.LIFE_to_gpx()
+
+            life_path = join(expanduser(self.config['input_path']), life_file)
+            output_path = join(expanduser(self.config['output_path']), life_file)
+            rename(life_path, output_path)
 
     def get_locations_max_distance(self):
         """ Creates an object that calculates the max distance between locations based on the average travel time between 
