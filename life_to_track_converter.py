@@ -542,8 +542,9 @@ class LIFEToTrackConverter(object):
         Args:
             day (:obj:`life.Day`): life.Day object that contains information about the date and the spans of a day 
         """
+        date = day.date.replace('_', '-')
 
-        with open(f"{self.config['output_path']}\\{day.date}.gpx", "w+") as f:
+        with open(f"{self.config['output_path']}\\{date}.gpx", "w+") as f:
                 f.write(self.to_gpx(day))
                 f.close()
             
