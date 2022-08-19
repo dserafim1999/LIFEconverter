@@ -18,7 +18,7 @@ If done properly, from a [LIFE](https://github.com/domiriel/LIFE) file a user sh
 
 ## Goal
 
-The goal of this tool is to be able to convert days described in the [LIFE](https://github.com/domiriel/LIFE) format into files that simulate real world routes in a GPX format file. This way we can provide a way to visualize these days whether or not the locations coordinates are explicitly defined in the [LIFE](https://github.com/domiriel/LIFE) file. This allows for the use of the data without comprimising the user's privacy. 
+The goal of this tool is to be able to convert days described in the [LIFE](https://github.com/domiriel/LIFE) format into files that simulate real world routes in a GPX format file. This way we can provide a way to visualize these days whether or not the locations coordinates are explicitly defined in the [LIFE](https://github.com/domiriel/LIFE) file. This allows for the use of the data without comprimising the user's privacy. A LIFE file generator is also provided in order to create completely randomized LIFE files.
 
 ## Config
 
@@ -45,15 +45,21 @@ Example:
 ```
 - **avg_speed**: defines the speed used to calculate distance bounding boxes between random locations (in km/h)
 - **bounds_iterations**: number of times the algorithm will run in order to better define random coordinates for the locations based on how long it takes to travel between them in the [LIFE](https://github.com/domiriel/LIFE) file
+- **life_generator**
+    - **locations_csv**: defines the path of the [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) file with the locations that will be used to generate the LIFE file
+    - **header_path**: defines the path of the input file where you can insert the meta commands that can be placed in the LIFE file's header
+    - **output_path**: defines the directory of the output LIFE file that is generated
 
 An API key must be defined. If one API is selected, but the key for said API is not defined, the other will be used instead (provided that key is defined). If none are defined, the program won't work, as they are used to generate routes between 2 points.
 
-## Run
+You should also define the input and output paths to use the converter, as well as the output path and the path for a [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) file populated with location names in order to use the LIFE generator. 
+
+## Run Converter
 
 The program can be run by using the following commands in the terminal:
 
 ```
- $ python life_to_track_converter.py [-h] [--config "file name"] [--google] 
+ $ python life_to_track_converter.py [--help] [--config "file name"] [--google] 
 ```
 
 or
@@ -66,3 +72,29 @@ Arguments:
 - **help** (--help, -h)
 - **config** (--config, -c): defines the configurations json file location  
 - **google** (--google, -g): when used, defines the Google Maps API as the prefered API to use (default is Tom Tom Routing API)
+
+## Run Generator
+
+To generate random LIFE files, the following command can be used in the terminal:
+
+```
+ $ python life_generator.py [--help] [--config "file name"] [--n_days n] [--max_spans s] [--date "yyyy-mm-dd"] [--output "file name"]
+```
+
+or
+
+```
+$ python life_generator.py [-h] [-c "file name"] [-n n] [-s s] [-d "yyyy-mm-dd"] [-o "file name"]
+
+```
+
+Keep in mind that the output path and the path for a [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) file populated with location names should be defined in your config json file in order to use this script.
+
+Arguments:
+- **help** (--help, -h)
+- **config** (--config, -c): defines the configurations json file location  
+- **n_days** (--n_days, -n): defines the number of days to generate (100 by omission) 
+- **max_spans** (--max_spans, -s): defines the maximum number of spans per day (10 by omission)
+- **date** (--date, -d): defines the start date of the generated days (current day by omission)
+- **output** (--output, -o): defines the name of the output file ("generated_life" by omission)
+

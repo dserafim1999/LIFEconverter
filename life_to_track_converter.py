@@ -11,22 +11,21 @@ from life.life import Life
 from utils.utils import update_dict
 from utils.default_config import CONFIG
 
+FAIL_COLOR = '\033[91m'
+END_COLOR = '\033[0m'
+
+def indentation(n):
+    return ''.join('\t' for i in range(n))
+
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('--config', '-c', dest='config', metavar='c', type=str,
         help='configuration file')
 parser.add_argument('--google', '-g', dest='use_google_maps_api', metavar='g', type=bool,
         help='use google maps api')
 args = parser.parse_args()
-
-def indentation(n):
-    return ''.join('\t' for i in range(n))
-
-FAIL_COLOR = '\033[91m'
-END_COLOR = '\033[0m'
-
 class LIFEToTrackConverter(object):
     """ 
-
+        Convertes LIFE files into randomly generated GPX track files
     """
 
     def __init__(self, config_file, use_google_maps_api=False):
